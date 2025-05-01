@@ -1,14 +1,13 @@
-import { LoginBackground } from "./login-background";
-
 export function LoginForm() {
 	return (
-		<div className="relative flex items-center justify-center">
-			<LoginBackground />
+		<div className="flex flex-col mt-6 gap-6">
+			<h2 className="text-3xl font-extrabold">Entrar</h2>
 
-			<h1 className="absolute text-5xl font-bold text-left max-w-[400px] tracking-wide ml-16">
-				A Revolução do Marketing por{" "}
-				<span className="text-secondary">Influência</span>
-			</h1>
+			<h4 className="text-sm text-muted-foreground font-medium">
+				Non sit purus tempus malesuada poten
+			</h4>
+
+			<div>h</div>
 		</div>
 	);
 }
