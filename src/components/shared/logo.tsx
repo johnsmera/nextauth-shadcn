@@ -1,12 +1,18 @@
 import type { SVGProps } from "react";
+import { cn } from "@/lib/utils";
 
-export function Logo(props: SVGProps<SVGSVGElement>) {
+interface LogoProps extends SVGProps<SVGSVGElement> {
+	className?: string;
+}
+
+export function Logo({ className, ...props }: LogoProps) {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			width={191}
 			height={39}
 			fill="none"
+			className={cn("w-auto h-auto", className)}
 			{...props}
 		>
 			<title>Tamojunto :)</title>

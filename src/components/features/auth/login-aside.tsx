@@ -1,8 +1,13 @@
 import { LoginBackground } from "./login-background";
+import { cn } from "@/lib/utils";
 
-export function LoginAside() {
+interface LoginAsideProps {
+	className?: string;
+}
+
+export function LoginAside({ className }: LoginAsideProps) {
 	return (
-		<div className="relative flex items-center justify-center">
+		<div className={cn("relative flex items-center justify-center", className)}>
 			<LoginBackground />
 
 			<h1 className="absolute text-5xl font-extrabold text-left max-w-[400px] tracking-wide ml-16">

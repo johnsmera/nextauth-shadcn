@@ -3,8 +3,13 @@
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LoginForm } from "./login-form";
+import { cn } from "@/lib/utils";
 
-export function LoginNavigation() {
+interface LoginNavigationProps {
+	className?: string;
+}
+
+export function LoginNavigation({ className }: LoginNavigationProps) {
 	const [activeTab, setActiveTab] = useState("signin");
 
 	const renderSigninContent = () => {
@@ -12,7 +17,7 @@ export function LoginNavigation() {
 	};
 
 	return (
-		<div>
+		<div className={cn("w-full", className)}>
 			<Tabs
 				value={activeTab}
 				onValueChange={setActiveTab}
