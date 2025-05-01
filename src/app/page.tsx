@@ -1,20 +1,24 @@
-import { LoginBackground } from "@/components/features/auth/login-background";
+import { LoginForm } from "@/components/features/auth/login-form";
 import { Logo } from "@/components/shared/logo";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Home() {
 	return (
-		/* grid de 2 colunas */
 		<div className="grid grid-cols-[1fr_1fr] h-screen w-screen">
-			<Logo />
+			<div className="flex p-16 flex-col gap-16">
+				<Logo />
 
-			<div className="relative flex items-center justify-center">
-				<LoginBackground />
-
-				<h1 className="absolute text-5xl font-bold text-left max-w-[400px] tracking-wide ml-16">
-					A Revolução do Marketing por{" "}
-					<span className="text-secondary">Influência</span>
-				</h1>
+				<Tabs defaultValue="account" className="w-[400px]">
+					<TabsList>
+						<TabsTrigger value="account">Entrar</TabsTrigger>
+						<TabsTrigger value="password">Cadastrar</TabsTrigger>
+					</TabsList>
+					<TabsContent value="account">Login Form</TabsContent>
+					<TabsContent value="password">Signin form</TabsContent>
+				</Tabs>
 			</div>
+
+			<LoginForm />
 		</div>
 	);
 }
