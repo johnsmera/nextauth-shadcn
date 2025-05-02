@@ -1,96 +1,37 @@
 "use server";
 
-import { signIn } from "@/lib/auth";
 import { loginSchema } from "./validations";
-import { AuthError } from "next-auth";
-import { prisma } from "@/lib/prisma";
-import { hash } from "bcryptjs";
-import { revalidatePath } from "next/cache";
-
-interface AuthErrorWithMessage extends AuthError {
-	cause?: {
-		message?: string;
-	};
-}
+import { AuthService } from "./services/auth.service";
 
 export async function credentialsSignInAction(formData: FormData) {
-	try {
-		const email = formData.get("email");
-		const password = formData.get("password");
+	const email = formData.get("email");
+	const password = formData.get("password");
 
-		const validatedFields = loginSchema.safeParse({
-			email,
-			password,
-		});
+	const validatedFields = loginSchema.safeParse({
+		email,
+		password,
+	});
 
-		if (!validatedFields.success) {
-			return { error: "Campos inválidos" };
-		}
-
-		const result = await signIn("credentials", {
-			email: validatedFields.data.email,
-			password: validatedFields.data.password,
-			redirect: false,
-		});
-
-		if (result?.error) {
-			return { error: "Credenciais inválidas" };
-		}
-
-		return { success: true };
-	} catch (error) {
-		if (error instanceof AuthError) {
-			const authError = error as AuthErrorWithMessage;
-			if (authError.cause?.message === "CredentialsSignin") {
-				return { error: "Credenciais inválidas, tente novamente." };
-			}
-			console.log(error);
-			return { error: "Login ou senha inválidos, tente novamente." };
-		}
-		throw error;
+	if (!validatedFields.success) {
+		return { error: "Campos inválidos" };
 	}
+
+	const authService = new AuthService();
+	return authService.signInWithCredentials({
+		email: validatedFields.data.email,
+		password: validatedFields.data.password,
+	});
 }
 
 export async function signInGoogleAction() {
-	await signIn("google", { redirectTo: "/dash" });
+	const authService = new AuthService();
+	await authService.signInWithGoogle();
 }
 
 export async function registerAction(formData: FormData) {
-	try {
-		const email = formData.get("email") as string;
-		const password = formData.get("password") as string;
+	const email = formData.get("email") as string;
+	const password = formData.get("password") as string;
 
-		const existingUser = await prisma.user.findUnique({
-			where: { email },
-		});
-
-		if (existingUser) {
-			return { error: "Este email já está em uso" };
-		}
-
-		const hashedPassword = await hash(password, 10);
-
-		await prisma.user.create({
-			data: {
-				email,
-				password: hashedPassword,
-			},
-		});
-
-		const result = await signIn("credentials", {
-			email,
-			password,
-			redirect: false,
-		});
-
-		if (result?.error) {
-			return { error: "Erro ao fazer login após registro" };
-		}
-
-		revalidatePath("/");
-		return { success: true };
-	} catch (error) {
-		console.error("Erro ao registrar usuário:", error);
-		return { error: "Ocorreu um erro ao registrar o usuário" };
-	}
+	const authService = new AuthService();
+	return authService.register({ email, password });
 }
