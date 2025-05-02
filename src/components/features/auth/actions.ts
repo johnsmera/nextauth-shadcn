@@ -4,7 +4,7 @@ import { signIn } from "@/auth";
 import { loginSchema } from "./validations";
 import { AuthError } from "next-auth";
 import { prisma } from "@/lib/prisma";
-import { hash } from "bcryptjs";
+import { hash } from "bcrypt";
 import { revalidatePath } from "next/cache";
 
 interface AuthErrorWithMessage extends AuthError {
