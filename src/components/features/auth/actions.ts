@@ -1,6 +1,6 @@
 "use server";
 
-import { signIn } from "@/auth";
+import { signIn } from "@/lib/auth";
 import { loginSchema } from "./validations";
 import { AuthError } from "next-auth";
 import { prisma } from "@/lib/prisma";

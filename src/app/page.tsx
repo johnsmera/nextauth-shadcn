@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { auth } from "@/lib/auth";
 import { LoginAside } from "@/components/features/auth/login-aside";
 import { LoginBackground } from "@/components/features/auth/login-background";
 import { LoginNavigation } from "@/components/features/auth/login-navigation";
