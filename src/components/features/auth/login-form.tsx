@@ -1,82 +1,28 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { loginSchema, type LoginFormData } from "./validations";
-import { credentialsSignInAction, signInGoogleAction } from "./actions";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { InputLabel } from "@/components/shared/input-label";
 import { GoogleIcon } from "@/components/shared/icons/google-icon";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { signInGoogleAction } from "./actions";
+import { useLoginForm } from "@/hooks/use-login-form";
 
 interface LoginFormProps {
   className?: string;
 }
 
 export function LoginForm({ className }: LoginFormProps) {
-  const { push } = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
-
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    setError,
-    setValue,
-  } = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-    mode: "onChange",
-  });
-
-  useEffect(() => {
-    const savedEmail = localStorage.getItem("rememberedEmail");
-    if (savedEmail) {
-      setValue("email", savedEmail);
-      setRememberMe(true);
-    }
-  }, [setValue]);
-
-  const onSubmit = async (data: LoginFormData) => {
-    try {
-      setIsLoading(true);
-      const formData = new FormData();
-      formData.append("email", data.email);
-      formData.append("password", data.password);
-
-      if (rememberMe) {
-        localStorage.setItem("rememberedEmail", data.email);
-      } else {
-        localStorage.removeItem("rememberedEmail");
-      }
-
-      const result = await credentialsSignInAction(formData);
-
-      if (result?.error) {
-        setError("root", {
-          message: result.error,
-        });
-        toast.error(result.error);
-        setIsLoading(false);
-        return;
-      }
-
-      push("/dash");
-    } catch (error) {
-      console.log("Erro ao fazer login:", error);
-      toast.error("Ocorreu um erro ao fazer login");
-      setIsLoading(false);
-    }
-  };
+    errors,
+    isLoading,
+    rememberMe,
+    setRememberMe,
+    onSubmit,
+  } = useLoginForm();
 
   return (
     <div className={cn("flex flex-col mt-6 gap-6", className)}>
