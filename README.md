@@ -46,7 +46,7 @@ GOOGLE_CLIENT_SECRET="seu-client-secret"
 
 1. Clone o repositório:
 ```bash
-git clone [url-do-repositorio]
+git clone https://github.com/johnsmera/nextauth-shadcn
 cd siberia
 ```
 
@@ -148,10 +148,6 @@ Observações importantes:
 - `googleId`: String
 - `createdAt`: DateTime
 - `updatedAt`: DateTime
-
-## 🤝 Contribuição
-
-Este é um projeto de entrevista, mas sinta-se à vontade para explorar o código e sugerir melhorias!
 
 ## 📄 Licença
 
