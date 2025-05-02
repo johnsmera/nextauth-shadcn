@@ -13,7 +13,6 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { LoginBackground } from "./login-background";
 
 interface LoginFormProps {
   className?: string;
