@@ -1,9 +1,18 @@
 import { auth } from "@/lib/auth";
-import { redirect } from "next/navigation";
 import { LogoutButton } from "@/components/features/auth/logout-button";
+import Link from "next/link";
 
 export default async function DashPage() {
   const session = await auth();
+
+  if (!session?.user) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen">
+        <h1 className="text-2xl font-bold">Você não está autenticado</h1>
+        <Link href="/">Faça login</Link>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
