@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 
 interface InputLabelProps extends React.ComponentProps<"input"> {
 	label: string;
+	error?: string;
 }
 
 export const InputLabel = ({
@@ -12,6 +13,7 @@ export const InputLabel = ({
 	type,
 	id,
 	placeholder,
+	error,
 	...props
 }: InputLabelProps) => {
 	return (
@@ -21,9 +23,14 @@ export const InputLabel = ({
 				type={type} 
 				id={id} 
 				placeholder={placeholder} 
-				className={cn("w-full h-12", className)}
+				className={cn(
+					"w-full h-12",
+					error && "border-red-500 focus-visible:ring-red-500",
+					className
+				)}
 				{...props} 
 			/>
+			{error && <p className="text-sm text-red-500">{error}</p>}
 		</div>
 	);
 };

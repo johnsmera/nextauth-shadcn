@@ -6,7 +6,7 @@ interface LoginBackgroundProps {
 
 export function LoginBackground({ className }: LoginBackgroundProps) {
 	return (
-		<div className={cn("relative w-full h-full -z-10 overflow-hidden bg-background", className)}>
+		<div className={cn("relative w-full h-full -z-1 overflow-hidden bg-background", className)}>
 			{/* Círculos cortados superiores */}
 			<div className="absolute -top-[5%] left-[12.5%] w-[38vw] h-[38vw] min-w-[300px] min-h-[300px] max-w-[700px] max-h-[700px] rounded-full bg-primary -translate-x-1/2 -translate-y-1/2 [clip-path:inset(0_50%_0_0)] -rotate-35" />
 			<div className="absolute top-[5%] left-[78%] w-[28vw] h-[28vw] min-w-[240px] min-h-[240px] max-w-[500px] max-h-[500px] rounded-full bg-secondary -translate-x-1/2 -translate-y-1/2 [clip-path:inset(0_0_0_50%)] -rotate-35" />

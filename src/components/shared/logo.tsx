@@ -12,7 +12,7 @@ export function Logo({ className, ...props }: LogoProps) {
 			width={191}
 			height={39}
 			fill="none"
-			className={cn("w-auto h-auto", className)}
+			className={cn("w-auto h-auto lg:self-start", className)}
 			{...props}
 		>
 			<title>Tamojunto :)</title>
