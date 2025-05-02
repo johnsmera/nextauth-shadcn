@@ -38,7 +38,6 @@ Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 ```env
 DB_URL="postgresql://usuario:senha@localhost:5432/siberia"
 NEXTAUTH_SECRET="sua-chave-secreta"
-NEXTAUTH_URL="http://localhost:3000"
 GOOGLE_CLIENT_ID="seu-client-id"
 GOOGLE_CLIENT_SECRET="seu-client-secret"
 ```
@@ -110,6 +109,28 @@ O projeto implementa dois métodos de autenticação:
 - `pnpm build`: Gera a build de produção
 - `pnpm start`: Inicia o servidor de produção
 - `pnpm lint`: Executa o linter
+
+## 🌐 Deploy na Vercel
+
+Para fazer o deploy na Vercel, você precisará configurar as seguintes variáveis de ambiente:
+
+```env
+DB_URL="postgresql://usuario:senha@localhost:5432/siberia"
+NEXTAUTH_SECRET="sua-chave-secreta"
+NEXTAUTH_URL="https://seu-dominio.vercel.app"
+GOOGLE_CLIENT_ID="seu-client-id"
+GOOGLE_CLIENT_SECRET="seu-client-secret"
+```
+
+Observações importantes:
+- O `NEXTAUTH_URL` é a URL base do seu aplicativo
+  - Usada para gerar URLs de redirecionamento corretas
+  - Necessária para validar callbacks de autenticação
+  - Importante para gerenciar cookies de sessão
+- Na Vercel, você deve usar a URL do seu site (ex: `https://seu-app.vercel.app`)
+- A Vercel fornece automaticamente a URL do seu site após o deploy
+- Você pode configurar as variáveis de ambiente diretamente no painel da Vercel
+- Para o banco de dados, você pode usar o Supabase ou outro serviço de PostgreSQL
 
 ## 📝 Modelo de Dados
 
