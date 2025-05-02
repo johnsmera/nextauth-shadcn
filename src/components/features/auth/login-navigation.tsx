@@ -13,7 +13,25 @@ export function LoginNavigation({ className }: LoginNavigationProps) {
 	const [activeTab, setActiveTab] = useState("signin");
 
 	const renderSigninContent = () => {
-		return <LoginForm />;
+		return (
+			<div className="flex flex-col gap-4">
+				<LoginForm />
+				<span className="text-sm text-center text-muted-foreground">
+					Ainda não tem conta?{" "}
+					<span
+						className="text-primary font-medium cursor-pointer"
+						onClick={() => setActiveTab("signup")}
+						onKeyDown={(e) => {
+							if (e.key === "Enter") {
+								setActiveTab("signup");
+							}
+						}}
+					>
+						Assine agora
+					</span>
+				</span>
+			</div>
+		);
 	};
 
 	return (
